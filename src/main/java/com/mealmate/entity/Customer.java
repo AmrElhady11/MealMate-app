@@ -17,7 +17,7 @@ public class Customer extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    @OneToOne(cascade = CascadeType.ALL)     //it will be added after implementing security
-//    private User user
+//    private User user;
 
 //    @OneToOne(cascade = CascadeType.ALL)/  /it will be added after implementing order class
 //    private List<Order> orders;

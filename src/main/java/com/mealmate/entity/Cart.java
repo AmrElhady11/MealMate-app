@@ -23,7 +23,9 @@ public class Cart extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Integer status;
-
     private double discount;
+    @OneToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    private Customer customer;
 
 }

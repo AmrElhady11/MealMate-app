@@ -20,7 +20,9 @@ public class CartItem extends BaseEntity {
     private Integer unitPrice;
     @Column(name = "total_price",insertable=false , updatable=false)
     private Double totalPrice;
-
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     public Double getTotalPrice() {
         return totalPrice != null ? totalPrice : 0.0;

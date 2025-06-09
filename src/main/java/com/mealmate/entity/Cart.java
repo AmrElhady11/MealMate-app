@@ -3,6 +3,7 @@ package com.mealmate.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -27,5 +28,8 @@ public class Cart extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
     private Customer customer;
+
+    @OneToMany(mappedBy ="cart",cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
 }

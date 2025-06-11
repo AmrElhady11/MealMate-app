@@ -1,5 +1,6 @@
 package com.mealmate.entity;
 
+import com.mealmate.enums.OwnerStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,7 @@ public class Address {
     private String zip;
     private String country;
     private String phone;
+    private OwnerStatus owner;
+    @Column(name = "owner_id")
+    private Long OwnerId;
 }

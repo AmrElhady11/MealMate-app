@@ -21,8 +21,7 @@ public class Customer extends BaseEntity {
 
 //    @OneToOne(cascade = CascadeType.ALL)/  /it will be added after implementing order class
 //    private List<Order> orders;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Address> addresses;
+
 
     @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private Cart cart ;

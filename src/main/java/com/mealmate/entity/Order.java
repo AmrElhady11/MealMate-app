@@ -1,5 +1,6 @@
 package com.mealmate.entity;
 
+import com.mealmate.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

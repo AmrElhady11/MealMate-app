@@ -1,5 +1,5 @@
 package com.mealmate.enums;
 
-public enum OwnerStatus {
+public enum AddressOwnerStatus {
     CUSTOMER,RESTAURANT
 }

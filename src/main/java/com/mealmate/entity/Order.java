@@ -24,9 +24,7 @@ public class Order extends BaseEntity {
     @Column(name = "order_status")
     private OrderStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+
 
     @OneToOne
     @JoinColumn(name = "customer_id")

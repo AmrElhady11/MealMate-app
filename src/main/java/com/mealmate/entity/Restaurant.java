@@ -10,7 +10,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "restaurant")
@@ -35,7 +34,7 @@ public class Restaurant extends BaseEntity {
     private LocalTime closingTime;
 
     @OneToMany
-    @JoinColumn(name = "menu_id")
+    @JoinColumn(name = "address_id")
     private List<Address> addresses;
 
 

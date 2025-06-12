@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CartItemResponse {
-    private Integer id;
-    private Integer MenuItemId;
+    private Long id;
+    private Long MenuItemId;
     private Integer quantity;
     private Double UnitPrice;
 

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CartResponse {
-    private Integer cartId;
+    private Long cartId;
     private Double totalPrice;
     private List<CartItemResponse> cartItems;
     @Builder.Default

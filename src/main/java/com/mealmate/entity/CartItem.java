@@ -17,7 +17,7 @@ public class CartItem extends BaseEntity {
     private Long id;
     private Integer quantity;
     @Column(name = "unit_price")  //we need to update it to call its value from menu
-    private Integer unitPrice;
+    private Double unitPrice;
     @Column(name = "total_price",insertable=false , updatable=false)
     private Double totalPrice;
     @ManyToOne

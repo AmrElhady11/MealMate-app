@@ -19,4 +19,15 @@ public class HandlerException {
           return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
     }
+
+    @ExceptionHandler(ExpirationException.class)
+    public ResponseEntity<ErrorResponse> handleExpirationException(ExpirationException e) {
+        ErrorResponse error = ErrorResponse.builder().
+                message(e.getMessage())
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+
+    }
 }

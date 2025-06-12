@@ -30,4 +30,16 @@ public class HandlerException {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 
     }
+
+
+    @ExceptionHandler(InvalidException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidException(InvalidException e) {
+        ErrorResponse error = ErrorResponse.builder().
+                message(e.getMessage())
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+
+    }
 }

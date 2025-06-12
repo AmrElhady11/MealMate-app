@@ -1,12 +1,8 @@
 package com.mealmate.services;
 
-import com.mealmate.repository.CartRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.mealmate.entity.Cart;
+import com.mealmate.request.CartItemRequest;
 
-@Service
-@RequiredArgsConstructor
-public class CartService {
-    private final CartRepository cartRepository;
-
+public interface CartService {
+    Cart addItemToCart(CartItemRequest cartItemRequest);
 }

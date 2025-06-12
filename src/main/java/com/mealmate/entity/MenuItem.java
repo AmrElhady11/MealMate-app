@@ -22,8 +22,4 @@ public class MenuItem extends BaseEntity {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-
-
-
-
 }

@@ -2,7 +2,7 @@ package com.mealmate.controller;
 
 import com.mealmate.request.CartItemRequest;
 import com.mealmate.response.CartResponse
-import com.mealmate.services.CartService;
+import com.mealmate.services.Impl.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/carts")
 @RequiredArgsConstructor
 public class CartController {
-private final CartService cartService;
+private final CartServiceImpl cartService;
 
 @PostMapping("/add/cartItem")
 ResponseEntity<CartResponse> addCartItem(@RequestBody CartItemRequest request) {

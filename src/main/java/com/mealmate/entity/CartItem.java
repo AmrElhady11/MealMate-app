@@ -1,5 +1,6 @@
 package com.mealmate.entity;
 
+import com.mealmate.request.CartItemRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,11 +21,21 @@ public class CartItem extends BaseEntity {
     private Double unitPrice;
     @Column(name = "total_price",insertable=false , updatable=false)
     private Double totalPrice;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
     public Double getTotalPrice() {
         return totalPrice != null ? totalPrice : 0.0;
+    }
+
+
+    public static CartItem buildCartItem( CartItemRequest request) {
+       return CartItem.builder()
+                .unitPrice(request.getUnitPrice())
+                .id(request.getCartId())
+                .quantity(request.getQuantity())
+                .build();
+
     }
 }

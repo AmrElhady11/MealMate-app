@@ -1,11 +1,14 @@
 package com.mealmate.entity;
 
+import com.mealmate.enums.CartStatus;
+import com.mealmate.request.CartRequest;
+import com.mealmate.response.CartResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
-
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,7 +26,7 @@ public class Cart extends BaseEntity {
     private Integer totalItems;
 
     @Enumerated(EnumType.STRING)
-    private Integer status;
+    private CartStatus status;
     private double discount;
     @OneToOne
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
@@ -31,5 +34,16 @@ public class Cart extends BaseEntity {
 
     @OneToMany(mappedBy ="cart",cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
+
+
+    public static Cart createCart(CartRequest request) {
+        return Cart.builder()
+                .status(request.getStatus())
+                .totalItems(request.getTotalItems())
+                .discount(request.getDiscount())
+                .totalPrice(request.getTotalPrice())
+                .build();
+
+    }
 
 }

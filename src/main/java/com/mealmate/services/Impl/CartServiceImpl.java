@@ -11,6 +11,8 @@ import com.mealmate.repository.CustomerRepository;
 import com.mealmate.repository.MenuItemRepository;
 import com.mealmate.request.CartItemRequest;
 import com.mealmate.request.CartRequest;
+import com.mealmate.request.OrderRequest;
+import com.mealmate.response.OrderResponse;
 import com.mealmate.services.CartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl extends OrderHandler implements CartService {
     private final LocalDateTime dateTime = LocalDateTime.now();
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
@@ -132,4 +134,13 @@ public class CartServiceImpl implements CartService {
     }
 
 
+    @Override
+    public OrderResponse handleOrder(OrderRequest orderRequest, OrderResponse orderResponse) {
+        return null;
+    }
+
+    @Override
+    public OrderResponse handle(OrderRequest orderRequest, OrderResponse orderResponse) {
+        return null;
+    }
 }

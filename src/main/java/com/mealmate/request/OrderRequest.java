@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequest {
+    private Long id;
     private Long CartId;
     private Long CustomerId;
     private Long restaurantId;

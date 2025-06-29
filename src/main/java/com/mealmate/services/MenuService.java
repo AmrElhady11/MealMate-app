@@ -12,10 +12,10 @@ public interface MenuService {
     Menu addMenu(MenuRequest menuRequest);
     MenuItem addMenuItem(MenuItemRequest menuItemRequest);
     MenuItem updateMenuItem(MenuItemRequest menuItemRequest);
-    void deleteMenu(Long MenuId);
+    void deleteMenu(Long menuId);
     void clearMenu(Long manuId);
     void deleteMenuItem(Long menuItemId);
-    List<MenuItem> browseMenu(Long MenuId);
+    List<MenuItem> browseMenu(Long menuId);
     List<Menu> browseAllRestaurantMenus(Long restaurantId);
     List<MenuItem> getMenuItemByTitle(String title);
 

@@ -24,7 +24,8 @@ public class CartItem extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    private MenuItem menuItem;
     public Double getTotalPrice() {
         return totalPrice != null ? totalPrice : 0.0;
     }
@@ -33,7 +34,7 @@ public class CartItem extends BaseEntity {
     public static CartItem buildCartItem( CartItemRequest request) {
        return CartItem.builder()
                 .unitPrice(request.getUnitPrice())
-                .id(request.getCartId())
+                .id(request.getId())
                 .quantity(request.getQuantity())
                 .build();
 

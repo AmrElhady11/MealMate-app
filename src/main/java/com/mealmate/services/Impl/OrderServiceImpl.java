@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,40 +24,46 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
-    private final RestaurantRepository restaurantRepository;
+    private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
     private final MapperUtil mapperUtil;
     private final LocalDateTime dateTime = LocalDateTime.now();
 
     @Transactional
     @Override
-    public OrderResponse placeOrder(OrderRequest orderRequest) {
+    public OrderResponse createOrder(OrderRequest orderRequest) {
         isOrderExist(orderRequest.getId());
-        Restaurant restaurant = restaurantRepository.findById(orderRequest.getRestaurantId()).get();
         Cart cart = cartRepository.findById(orderRequest.getCartId())
                 .orElseThrow(() -> new NotFoundException(String.format("Cart not found for restaurant %s", orderRequest.getRestaurantId())));
+        List<CartItem> cartItems = cartItemRepository.findAllByCartId(orderRequest.getCartId());
 
+        if(cartItems.isEmpty())
+            throw new InvalidException(String.format("Your cart is empty", orderRequest.getRestaurantId()));
+
+        List<OrderItem> orderItems = getOrderItems(cartItems);
         Order order = Order.orderBuilder(orderRequest);
-        return null;
-
+        order.setOrderItems(orderItems);
+        orderRepository.save(order);
+        return mapperUtil.map(order, OrderResponse.class);
     }
 
 
     @Transactional
     @Override
-    public OrderResponse getOrder(OrderRequest orderRequest) {
-        Order order = getOrderById(orderRequest.getId());
+    public OrderResponse getOrder(long orderId) {
+        Order order = getOrderById(orderId);
         return mapperUtil.map(order,OrderResponse.class);
     }
 
     @Override
-    public OrderStatus cancelOrder(long OrderId) {
-        return null;
+    public void cancelOrder(long OrderId) {
+        orderRepository.deleteById(OrderId);
     }
 
     @Override
-    public OrderStatusResponse UpdateStatus(long OrderId) {
+    public OrderStatusResponse updateStatus(long OrderId,OrderStatus status) {
         Order order = getOrderById(OrderId);
+        order.setStatus(status);
         return mapperUtil.map(order,OrderStatusResponse.class);
 
 
@@ -65,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderStatusResponse getStatus(long OrderId) {
         Order order = getOrderById(OrderId);
-        return null;
+        return mapperUtil.map(order,OrderStatusResponse.class);
     }
 
     private Order getOrderById(long OrderId) {
@@ -78,8 +85,12 @@ public class OrderServiceImpl implements OrderService {
             throw new InvalidException(String.format("Order with id %s already exists", OrderId));
         }
     }
-    private List<OrderItem> getOrderItems(long OrderId) {
-        return List.of();
+    private List<OrderItem> getOrderItems(List<CartItem> cartItems) {
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (CartItem cartItem : cartItems) {
+          orderItems.add(OrderItem.buildOrderItem(cartItem));
+        }
+        return orderItems;
     }
 
 }

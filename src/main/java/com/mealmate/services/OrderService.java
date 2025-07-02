@@ -8,7 +8,7 @@ import com.mealmate.response.OrderStatusResponse;
 
 
 public interface OrderService {
-
+    OrderResponse placeOrder(OrderRequest orderRequest);
     OrderResponse getOrder(OrderRequest orderRequest);
     OrderStatus cancelOrder(long OrderId);
     OrderStatusResponse UpdateStatus(long OrderId);

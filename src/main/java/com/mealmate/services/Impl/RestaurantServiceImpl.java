@@ -11,8 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,8 +45,8 @@ public class RestaurantServiceImpl implements RestaurantService {
    }
 
    @Override
-   public List<Restaurant> getAllRestaurants(Pageable pageable) {
-      return (List<Restaurant>) restaurantRepository.findAll(pageable);
+   public Page<Restaurant> getAllRestaurants(Pageable pageable) {
+      return restaurantRepository.findAll(pageable);
    }
    @Transactional
    @Override

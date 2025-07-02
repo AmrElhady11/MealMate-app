@@ -4,11 +4,12 @@ import com.mealmate.entity.Restaurant;
 import com.mealmate.request.RestaurantRequest;
 import com.mealmate.services.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -30,9 +31,9 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurant,ACCEPTED);
     }
     @GetMapping("/allRestaurants")
-    public ResponseEntity<List<Restaurant>> getAllRestaurants(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<Restaurant>> getAllRestaurants(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = (Pageable) PageRequest.of(page,size);
-        List<Restaurant> restaurantList = restaurantService.getAllRestaurants(pageable);
+        Page<Restaurant> restaurantList = restaurantService.getAllRestaurants(pageable);
         return new ResponseEntity<>(restaurantList,FOUND);
     }
 

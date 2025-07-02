@@ -1,14 +1,10 @@
 package com.mealmate.services.Impl;
 
-import com.mealmate.entity.Cart;
-import com.mealmate.entity.Order;
-import com.mealmate.entity.Restaurant;
+import com.mealmate.entity.*;
 import com.mealmate.enums.OrderStatus;
+import com.mealmate.exception.InvalidException;
 import com.mealmate.exception.NotFoundException;
-import com.mealmate.repository.CartRepository;
-import com.mealmate.repository.MenuItemRepository;
-import com.mealmate.repository.OrderRepository;
-import com.mealmate.repository.RestaurantRepository;
+import com.mealmate.repository.*;
 import com.mealmate.request.OrderRequest;
 import com.mealmate.response.OrderResponse;
 import com.mealmate.response.OrderStatusResponse;
@@ -19,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +24,23 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final RestaurantRepository restaurantRepository;
-    private final MenuItemRepository menuItemRepository;
+    private final OrderItemRepository orderItemRepository;
     private final MapperUtil mapperUtil;
     private final LocalDateTime dateTime = LocalDateTime.now();
+
+    @Transactional
+    @Override
+    public OrderResponse placeOrder(OrderRequest orderRequest) {
+        isOrderExist(orderRequest.getId());
+        Restaurant restaurant = restaurantRepository.findById(orderRequest.getRestaurantId()).get();
+        Cart cart = cartRepository.findById(orderRequest.getCartId())
+                .orElseThrow(() -> new NotFoundException(String.format("Cart not found for restaurant %s", orderRequest.getRestaurantId())));
+
+        Order order = Order.orderBuilder(orderRequest);
+        return null;
+
+    }
+
 
     @Transactional
     @Override
@@ -62,4 +73,13 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new NotFoundException(String.format("Order with id %s not found", OrderId)));
 
     }
+    private void isOrderExist(long OrderId) {
+        if (orderRepository.existsById(OrderId)) {
+            throw new InvalidException(String.format("Order with id %s already exists", OrderId));
+        }
+    }
+    private List<OrderItem> getOrderItems(long OrderId) {
+        return List.of();
+    }
+
 }

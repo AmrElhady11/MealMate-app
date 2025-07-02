@@ -17,6 +17,5 @@ public class OrderRequest {
     private Long CartId;
     private Long CustomerId;
     private Long restaurantId;
-    private List<CartItem> items;
     private String deliveryAddress;
 }

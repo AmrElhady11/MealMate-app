@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class OrderStatusResponse {
-    private Long OrderId;
+    private Long id;
     private OrderStatus status;
 }

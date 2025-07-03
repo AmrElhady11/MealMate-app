@@ -1,6 +1,7 @@
 package com.mealmate.response;
 
 import com.mealmate.entity.CartItem;
+import com.mealmate.entity.OrderItem;
 import com.mealmate.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,12 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponse {
-    private Long orderId;
-    private Long customerId;
-    private Long restaurantId;
-    private List<CartItem> items;
+    private Long id;
+//    private Long customerId;
+    private List<OrderItem> orderItems;
     private Double totalPrice;
-    private LocalDateTime orderTime;
-    private String orderAddress;
-    private OrderStatus orderStatus;
+//    private LocalDateTime orderTime;
+    private String deliveryAddress;
+    private OrderStatus status;
 }

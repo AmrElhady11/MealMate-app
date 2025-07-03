@@ -36,14 +36,14 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrder(orderId),ACCEPTED);
 
     }
-    @GetMapping("/getOrder/{orderId}")
+    @GetMapping("/getOrderStatus/{orderId}")
     public ResponseEntity<OrderStatusResponse> getOrderStatus(@PathVariable long orderId) {
 
         return new ResponseEntity<>(orderService.getStatus(orderId),ACCEPTED);
 
     }
 
-    @PutMapping("/getOrder")
+    @PutMapping("/updateOrder")
     public ResponseEntity<OrderStatusResponse> updateOrderStatus(@RequestParam long orderId, @RequestBody OrderStatus status) {
 
         return new ResponseEntity<>(orderService.updateStatus(orderId,status),ACCEPTED);
